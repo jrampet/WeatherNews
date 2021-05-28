@@ -21,21 +21,20 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7x4-kt-lh9">
-                    <rect key="frame" x="10" y="49" width="394" height="80"/>
+                    <rect key="frame" x="10" y="69" width="394" height="80"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="9b9-4V-Wt0"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eo7-Q8-I5D">
-                    <rect key="frame" x="10" y="129" width="394" height="733"/>
-                    <color key="backgroundColor" systemColor="systemPinkColor"/>
+                    <rect key="frame" x="10" y="149" width="394" height="713"/>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="7x4-kt-lh9" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="5" id="1hG-rD-CeF"/>
+                <constraint firstItem="7x4-kt-lh9" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="25" id="1hG-rD-CeF"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Eo7-Q8-I5D" secondAttribute="bottom" id="X4h-8W-W1M"/>
                 <constraint firstItem="Eo7-Q8-I5D" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="YCT-kE-ubN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7x4-kt-lh9" secondAttribute="trailing" constant="10" id="cYM-FH-GxR"/>
@@ -49,9 +48,6 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

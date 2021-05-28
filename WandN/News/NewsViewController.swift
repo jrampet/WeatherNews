@@ -17,17 +17,21 @@ class NewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        createSearchBar()
         tabView.frame = CGRect(x: 10, y: 10, width: topView.frame.width, height: topView.frame.height)
         mainView.frame = newsView.bounds
         
         mainView.delegate = self
         tabView.delegate = self
         
-//        topView.addSubview(tabView)
+        topView.addSubview(tabView)
         newsView.addSubview(mainView)
+//        tabView.isHidden = true
+//        topView.isHidden = true
         requestForNews(APIURL.news)
         // Do any additional setup after loading the view.
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        createSearchBar()
     }
     
     func createSearchBar(){
@@ -40,27 +44,34 @@ class NewsViewController: UIViewController {
     }
    
     func requestForNews(_ url:String){
+        var fetchedData : News?
+        apiFetch.request(url: url, completion: {data in
+            print("Request")
+            do{
+                let json = try JSONDecoder().decode(News.self,from:data)
+                fetchedData = json
+            }catch{
+                print("ERRORs")
+            }
+            guard let fetchedData = fetchedData else{ return }
+            print("Callback",fetchedData.articles.count)
+            self.mainView.NewsData = fetchedData.articles
+        })
         
-        guard let data = apiFetch.request(url: url) else{return}
-        
-        var json: News?
-        do{
-            json = try JSONDecoder().decode(News.self,from:data)
-        }catch{
-            print("ERRORs")
-        }
-        guard let fetchedData = json else{ return }
-        print(fetchedData.articles.count)
-        self.mainView.NewsData = fetchedData.articles
-        
-        DispatchQueue.main.async {
-            print(self.mainView.NewsData.count)
-            self.mainView.table.reloadData()
-            
-        }
+//        DispatchQueue.main.async {
+//            print(self.mainView.NewsData.count)
+//            self.mainView.table.reloadData()
+//
+//        }
     }
 }
 extension NewsViewController:UISearchBarDelegate,MainViewDelegate,TabsDelegate{
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text else{return}
+        let searchUrl = APIURL.search + searchText
+        requestForNews(searchUrl)
+        searchBar.endEditing(true)
+    }
     func reloadNews(with category: String) {
         let categoryUrl = APIURL.news+"&category="+category
         requestForNews(categoryUrl)
@@ -76,3 +87,36 @@ extension NewsViewController:UISearchBarDelegate,MainViewDelegate,TabsDelegate{
     
     
 }
+/*
+ guard let data = apiFetch.request(url: url) else{return}
+ 
+ var json: News?
+ do{
+     json = try JSONDecoder().decode(News.self,from:data)
+ }catch{
+     print("ERRORs")
+ }
+ guard let fetchedData = json else{ return }
+ print(fetchedData.articles.count)
+ self.mainView.NewsData = fetchedData.articles
+ 
+ DispatchQueue.main.async {
+     print(self.mainView.NewsData.count)
+     self.mainView.table.reloadData()
+     
+ }
+ */
+/*
+ apiFetch.request(url: url, completion: {data in
+     print("Request")
+     do{
+         json = try JSONDecoder().decode(News.self,from:data)
+     }catch{
+         print("ERRORs")
+     }
+     guard let fetchedData = json else{ return }
+     print("Callback",fetchedData.articles.count)
+     self.mainView.NewsData = fetchedData.articles
+     reload()
+ })
+ */

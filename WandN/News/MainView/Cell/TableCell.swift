@@ -24,19 +24,12 @@ class TableCell: UITableViewCell {
         if let urlImage = data.urlToImage{
             newsImage.setImage(urlLink: urlImage)
             
-        }else{
-            newsImage.image = UIImage(named: "noImage")
         }
-
         if let dataSource = data.source.name{
             Source.text = "By "+dataSource
-        }else{
-            Source.heightAnchor.constraint(equalToConstant: 0).isActive = true
         }
         time.text = UTCToLocal(UTCDateString: data.publishedAt)
         head.text = data.title
-        newsImage.layer.shadowColor = Colors.shadowColor
-        newsImage.layer.shadowOffset = CGSize(width: 1.0, height: 2.0)
         newsImage.layer.cornerRadius = 10
         self.selectionStyle = .none
     }

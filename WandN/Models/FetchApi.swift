@@ -9,19 +9,18 @@ import Foundation
 
 class FetchApi{
     
-    func request(url:String)->Data?{
-        var returnData : Data?
-        let semaphore = DispatchSemaphore(value: 0)
+    func request(url:String,completion: @escaping (_ data: Data)->()){
+
          URLSession.shared.dataTask(with: URL(string: url)!, completionHandler: { data,response,error in
             if let data = data, error == nil{
-                returnData = data
-                semaphore.signal()
+                completion(data)
+            }else{
+                print("Error in api")
             }
            
             
         }).resume()
-        semaphore.wait()
-        return returnData
+       
     }
     
     

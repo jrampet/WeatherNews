@@ -49,12 +49,13 @@ func getTimeForDate(_ inputDate: Int,_ cardView:CardView) -> String{
     return returnDate
 }
 
+
 func UTCToLocal(UTCDateString: String) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" //Input Format
     dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
     let UTCDate = dateFormatter.date(from: formatDate(date:UTCDateString))
-    dateFormatter.dateFormat = "yyyy-MMM-dd hh:mm:ss:a" // Output Format
+    dateFormatter.dateFormat = "yyyy-MMM-dd hh:mm:a"  //Output Format
     dateFormatter.timeZone = TimeZone.current
     let UTCToCurrentFormat = dateFormatter.string(from: UTCDate!)
     return UTCToCurrentFormat

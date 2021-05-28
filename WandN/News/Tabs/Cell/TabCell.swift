@@ -16,6 +16,7 @@ class TabCell: UICollectionViewCell {
     }
     func configure(with title:String){
         self.title.text = title.firstUppercased
+        self.backgroundColor = .clear
    
     }
 

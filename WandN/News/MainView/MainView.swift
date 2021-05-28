@@ -13,7 +13,14 @@ protocol MainViewDelegate{
 class MainView: UIView {
     var table = UITableView()
     var delegate: MainViewDelegate?
-    var NewsData = [Article]()
+    var NewsData = [Article](){
+        didSet{
+            DispatchQueue.main.async {
+                self.table.reloadData()
+            }
+            
+        }
+    }
     override init(frame: CGRect){
         super.init(frame: frame)
         
@@ -41,6 +48,7 @@ class MainView: UIView {
 }
 extension MainView:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("Newsdata:",NewsData.count)
         return NewsData.count
     }
     
@@ -56,6 +64,9 @@ extension MainView:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let newsUrl = NewsData[indexPath.row].url else{return}
         delegate?.openNews(with: newsUrl)
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
     }
     
 }
