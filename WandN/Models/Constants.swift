@@ -17,10 +17,21 @@ enum current{
         return TemperatureUnit.celsius.rawValue
     }
 }
-struct APIURL{
+struct ApiUrl{
+    static let cities = "https://api.openweathermap.org/data/2.5/find?cnt=50&appid=3540e704b9a91cce081155a9f4acefc6"
+    static let Single = "https://api.openweathermap.org/data/2.5/onecall?exclude=minutely&units=metric&appid=3540e704b9a91cce081155a9f4acefc6"
     static let news = "https://newsapi.org/v2/top-headlines?apiKey=20471105730b410597624ffe369b55c6&country=in"
     static let search = "https://newsapi.org/v2/everything?apiKey=20471105730b410597624ffe369b55c6&q="
 }
+enum WeatherType{
+    case singleCity
+    case cityAround
+}
+enum NewsType{
+    case news
+    case searchNews
+}
+//lat=\(lat)&lon=\(long)&cnt=50&
 
 
 struct Available{
@@ -86,10 +97,7 @@ enum country:String{
     case Venezuela = "ve"
     case SouthAfrica = "za"
 }
-enum url{
-    case singleCity
-    case cityAround
-}
+
 
 /*enum category:String{
     case Business = "business"

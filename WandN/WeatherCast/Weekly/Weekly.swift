@@ -8,6 +8,7 @@
 import UIKit
 
 class Weekly: CardView {
+    let identifier = "WeatherCell"
     var table = UITableView()
     var models = [Daily]()
     override init(frame: CGRect){
@@ -21,7 +22,7 @@ class Weekly: CardView {
     }
     
     func addTable(){
-        table.register(UINib(nibName: "WeatherCell", bundle: nil), forCellReuseIdentifier: WeatherCell.identifier)
+        table.register(UINib(nibName: "WeatherCell", bundle: nil), forCellReuseIdentifier: self.identifier)
         table.frame = CGRect(x: 0, y: 0, width: self.frame.width , height: self.frame.height)
         table.delegate = self
         table.dataSource = self
@@ -43,7 +44,7 @@ extension Weekly: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell =  tableView.dequeueReusableCell(withIdentifier: WeatherCell.identifier,for: indexPath) as! WeatherCell
+        let cell =  tableView.dequeueReusableCell(withIdentifier: self.identifier,for: indexPath) as! WeatherCell
         cell.configure(with: models[indexPath.row])
         return cell
     }

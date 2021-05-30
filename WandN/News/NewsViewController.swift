@@ -17,17 +17,14 @@ class NewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabView.frame = CGRect(x: 10, y: 10, width: topView.frame.width, height: topView.frame.height)
-        mainView.frame = newsView.bounds
-        
+        topView.addInnerView(innerView: tabView)
+        newsView.addInnerView(innerView: mainView)
         mainView.delegate = self
         tabView.delegate = self
         
         topView.addSubview(tabView)
         newsView.addSubview(mainView)
-//        tabView.isHidden = true
-//        topView.isHidden = true
-        requestForNews(APIURL.news)
+        requestForNews(ApiUrl.news)
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -35,14 +32,13 @@ class NewsViewController: UIViewController {
     }
     
     func createSearchBar(){
-        
         let searchController = UISearchController(searchResultsController: nil)
-        
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
-        
     }
    
+    
+    
     func requestForNews(_ url:String){
         var fetchedData : News?
         apiFetch.request(url: url, completion: {data in
@@ -58,27 +54,22 @@ class NewsViewController: UIViewController {
             self.mainView.NewsData = fetchedData.articles
         })
         
-//        DispatchQueue.main.async {
-//            print(self.mainView.NewsData.count)
-//            self.mainView.table.reloadData()
-//
-//        }
     }
 }
 extension NewsViewController:UISearchBarDelegate,MainViewDelegate,TabsDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else{return}
-        let searchUrl = APIURL.search + searchText
+        let searchUrl = ApiUrl.search + searchText
         requestForNews(searchUrl)
         searchBar.endEditing(true)
     }
     func reloadNews(with category: String) {
-        let categoryUrl = APIURL.news+"&category="+category
+        let categoryUrl = ApiUrl.news+"&category="+category
         requestForNews(categoryUrl)
     }
     
     func openNews(with url: String) {
-        let webVc = WebViewController()
+        let webVc = WebViewController(nibName: "WebViewController", bundle: nil)
         webVc.urlToLoad = url
         webVc.title = "News"
         guard let navigationVC = self.navigationController else {  return }

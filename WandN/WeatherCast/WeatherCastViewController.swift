@@ -26,14 +26,13 @@ class WeatherCastViewController: UIViewController,CLLocationManagerDelegate{
         super.viewDidLoad()
         location.delegate = self
         fetchLocation()
-        weeklyView.frame = CGRect(x: 0, y: 0, width: weekView.frame.width, height: weekView.frame.height)
+        weeklyView.frame = weekView.bounds
         weekView.addSubview(weeklyView)
-        hourlyView.frame = CGRect(x: 0, y: 0, width: hourView.frame.width, height: hourView.frame.height)
+        hourlyView.frame = hourView.bounds
         hourView.addSubview(hourlyView)
-        
         current.frame = CGRect(x: 10, y: 10, width: currentViews.frame.width-20, height: currentViews.frame.height-70)
-        
         currentViews.addSubview(current)
+        view.backgroundColor = Colors.dirtyWhite
         // Do any additional setup after loading the view.
     }
     
@@ -41,14 +40,35 @@ class WeatherCastViewController: UIViewController,CLLocationManagerDelegate{
             if let location = locations.first {
                 currentLocation = location
                 self.location.stopUpdatingLocation()
-//                requestForWeather(at: location.coordinate.latitude,and: location.coordinate.longitude)
+                requestForWeather(at: location.coordinate.latitude,and: location.coordinate.longitude)
             }
         
         }
 
 
-//    func requestForWeather(at lat:Double,and long:Double){
-//        let url = generateURL(with: lat, and: long,for: .singleCity)
+    func requestForWeather(at lat:Double,and long:Double){
+        let url = CLLocation(latitude: lat, longitude: long).getUrl(for: .singleCity)
+        
+        var fetchedData : WeatherResponse?
+        apiFetch.request(url: url, completion: {data in
+            print("Request")
+            do{
+                let json = try JSONDecoder().decode(WeatherResponse.self,from:data)
+                fetchedData = json
+            }catch{
+                print("ERRORs")
+            }
+            guard let fetchedData = fetchedData else{ return }
+            self.weeklyView.models = fetchedData.daily
+            self.hourlyView.hourlyData = fetchedData.hourly
+            print("LAAAT",fetchedData.lat)
+           DispatchQueue.main.async {
+               self.weeklyView.table.reloadData()
+               self.current.setTopView(currentData: fetchedData.current, location: CLLocation(latitude: fetchedData.lat, longitude: fetchedData.lon))
+               self.hourlyView.collection.reloadData()
+           }
+        })
+        
 //        guard let data = apiFetch.request(url: url) else{return}
 //            var json: WeatherResponse?
 //            do{
@@ -64,7 +84,7 @@ class WeatherCastViewController: UIViewController,CLLocationManagerDelegate{
 //                self.current.setTopView(currentData: fetchedData.current, location: CLLocation(latitude: fetchedData.lat, longitude: fetchedData.lon))
 //                self.hourlyView.collection.reloadData()
 //            }
-//    }
+    }
     
     
 

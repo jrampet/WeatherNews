@@ -11,35 +11,38 @@ class ViewController: UIViewController {
 
     @IBOutlet var newsButton: UIButton!
     @IBOutlet var weatherButton: UIButton!
-
+    let newsStoryboard: UIStoryboard = UIStoryboard(name: "News", bundle: nil)
     @IBAction func onClick(_ sender: UIButton) {
         switch(sender.tag){
-        case 0: let returnVc = WeatherCastViewController()
-                returnVc.title = "Weather App"
-                guard let navigationVC = self.navigationController else { return }
-                navigationVC.pushViewController(returnVc, animated: true)
-        case 1: let returnVc = NewsViewController()
-                returnVc.title = "News App"
-                guard let navigationVC = self.navigationController else {return }
-                navigationVC.pushViewController(returnVc, animated: true)
-            
+        case 0: let controller = WeatherCastViewController(nibName: "WeatherCastViewController", bundle: nil)
+            pushViewController(controller, with: "Weather")
+        case 1: let controller = NewsViewController(nibName: "NewsViewController", bundle: nil)
+            pushViewController(controller, with: "News")
         default: return
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        newsButton = setButton(button: newsButton, Color: Colors.shrinePink)
-        weatherButton = setButton(button: weatherButton, Color: Colors.brazilGreen)
+        newsButton.roundedCorner(color: Colors.shrinePink)
+        weatherButton.roundedCorner(color: Colors.brazilGreen)
         // Do any additional setup after loading the view.
     }
+    func pushViewController(_ controller: UIViewController,with title:String){
+        controller.title = title
+        guard let newController = self.navigationController else { return }
+        newController.pushViewController(controller, animated: true)
+    }
+    
+}
 
-    func setButton(button:UIButton,Color:UIColor)-> UIButton{
-        button.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        button.layer.shadowOffset = CGSize(width: 1.0, height: 2.0)
-        button.backgroundColor = Color
-        button.layer.shadowOpacity = 1.0
-        button.layer.cornerRadius = 15
-        return button
+extension UIButton{
+    func roundedCorner(color:UIColor){
+        self.layer.shadowColor = Colors.shadowColor.cgColor
+        self.layer.shadowOffset = CGSize(width: 1.0, height: 2.0)
+        self.backgroundColor = color
+        self.layer.shadowOpacity = 1.0
+        self.layer.cornerRadius = 15
     }
 }
 

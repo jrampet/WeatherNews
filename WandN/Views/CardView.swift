@@ -11,7 +11,6 @@ import UIKit
 class CardView: UIView {
 
     @IBInspectable var cornerRadius: CGFloat = 0
-
     @IBInspectable var shadowOffsetWidth: Int = 0
     @IBInspectable var shadowOffsetHeight: Int = 3
     @IBInspectable var shadowColor: UIColor? = UIColor.lightGray
@@ -19,10 +18,8 @@ class CardView: UIView {
 
     override func layoutSubviews() {
         cornerRadius = frame.width/15
-       
         layer.cornerRadius = cornerRadius
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        
         layer.masksToBounds = false
         layer.shadowColor = shadowColor?.cgColor
         layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);

@@ -10,32 +10,31 @@ protocol TabsDelegate{
     func reloadNews(with url:String)
 }
 class Tabs: UIView {
+    let identifier = "TabCell"
     var delegate :TabsDelegate?
-    var tabView = UICollectionView(frame:.zero ,collectionViewLayout:UICollectionViewFlowLayout())
+    @IBOutlet var tabView : UICollectionView!
+    
     override init(frame: CGRect){
         super.init(frame: frame)
-    }
-    override func didMoveToSuperview() {
+        let xibView = Bundle.main.loadNibNamed("Tabs", owner: self, options: nil)![0] as! UIView
+        self.addInnerView(innerView: xibView)
+        addSubview(xibView)
         createCollectionView()
-        self.backgroundColor = UIColor.clear
     }
     func createCollectionView(){
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        tabView = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
-        tabView.register(UINib(nibName: TabCell.identifier, bundle: nil), forCellWithReuseIdentifier: TabCell.identifier)
+        tabView.register(UINib(nibName: self.identifier, bundle: nil), forCellWithReuseIdentifier: self.identifier)
         tabView.delegate = self
         tabView.dataSource = self
-        tabView.frame = self.bounds
-        tabView.backgroundColor = UIColor.clear
-        tabView.showsHorizontalScrollIndicator = false
-        self.addSubview(tabView)
     }
+   
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+//        fatalError("init(coder:) has not been implemented")
     }
     
 }
+
+
 extension Tabs: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Available.categories.count
@@ -43,7 +42,7 @@ extension Tabs: UICollectionViewDelegate,UICollectionViewDataSource,UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //        let cell = UICollectionViewCell()
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TabCell.identifier, for: indexPath) as! TabCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.identifier, for: indexPath) as! TabCell
         cell.configure(with: Available.categories[indexPath.row])
         return cell
     }
@@ -61,3 +60,23 @@ extension Tabs: UICollectionViewDelegate,UICollectionViewDataSource,UICollection
     
     
 }
+/*
+ var tabView = UICollectionView(frame:.zero ,collectionViewLayout:UICollectionViewFlowLayout())
+ 
+ override func didMoveToSuperview() {
+     createCollectionView()
+     self.backgroundColor = UIColor.clear
+ }
+ func createCollectionView(){
+     let layout = UICollectionViewFlowLayout()
+     layout.scrollDirection = .horizontal
+     tabView = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
+     tabView.register(UINib(nibName: self.identifier, bundle: nil), forCellWithReuseIdentifier: self.identifier)
+     tabView.delegate = self
+     tabView.dataSource = self
+     tabView.frame = self.bounds
+     tabView.backgroundColor = UIColor.clear
+     tabView.showsHorizontalScrollIndicator = false
+     self.addSubview(tabView)
+ }
+ */

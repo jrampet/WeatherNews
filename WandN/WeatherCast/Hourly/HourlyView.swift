@@ -8,6 +8,7 @@
 import UIKit
 
 class HourlyView: UIView {
+    let identifier = "CollectionViewCell"
     var collection = UICollectionView(frame:.zero ,collectionViewLayout:UICollectionViewFlowLayout())
     var hourlyData = [Current]()
     
@@ -25,10 +26,7 @@ class HourlyView: UIView {
         let frameofCollection = CGRect(x: 0, y: 0, width: self.frame.width , height: self.frame.height)
        collection = UICollectionView(frame: frameofCollection, collectionViewLayout: layout)
         
-                collection.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: CollectionViewCell.identifier)
-       
-        
-
+        collection.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.identifier)
         collection.delegate = self
         collection.dataSource = self
         collection.backgroundColor = UIColor.clear
@@ -50,7 +48,7 @@ extension HourlyView:UICollectionViewDelegate,UICollectionViewDataSource,UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier, for: indexPath) as! CollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.identifier, for: indexPath) as! CollectionViewCell
         cell.configure(with: hourlyData[indexPath.row])
         return cell
     }

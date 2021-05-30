@@ -14,7 +14,7 @@ class WeatherCell: UITableViewCell {
     @IBOutlet var descriptLabel : UILabel!
     @IBOutlet var weatherImage : UIImageView!
     
-    static let identifier = "WeatherCell"
+    var imageLoader = ImageLoader()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,9 +22,15 @@ class WeatherCell: UITableViewCell {
 
     func configure(with model : Daily){
         self.TempLabel.text = "\(Int(model.temp.max))° / \(Int(model.temp.min)) \(current.temperature.unit())"
-        self.dayLabel.text =  getDayForDate(model.dt)
-        self.descriptLabel.text = model.weather[0].weatherDescription.rawValue.firstUppercased
-        weatherImage.setImage(urlString: model.weather[0].icon)
+        self.dayLabel.text =  model.dt.getDayForDate(dateFormat: "E")
+        self.descriptLabel.text = model.weather[0].weatherDescription.rawValue.capitalized
+//        weatherImage.setImage(urlString: model.weather[0].icon)
+        
+        let urlImage = model.weather[0].icon.getUrlforWeatherIcon()
+            imageLoader.obtainImageWithPath(imagePath: urlImage) { (image) in
+                self.weatherImage.image = image
+            }
+        
         self.TempLabel.contentMode = .scaleAspectFit
         self.descriptLabel.contentMode = .scaleAspectFit
         self.selectionStyle = .none

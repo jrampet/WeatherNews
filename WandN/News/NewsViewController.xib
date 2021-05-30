@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewsViewController" customModule="WandN" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner">
             <connections>
                 <outlet property="newsView" destination="Eo7-Q8-I5D" id="Z35-yJ-2ri"/>
                 <outlet property="topView" destination="7x4-kt-lh9" id="gB2-jK-VSX"/>
@@ -21,20 +21,20 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7x4-kt-lh9">
-                    <rect key="frame" x="10" y="69" width="394" height="80"/>
+                    <rect key="frame" x="10" y="49" width="394" height="70"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="80" id="9b9-4V-Wt0"/>
+                        <constraint firstAttribute="height" constant="70" id="9b9-4V-Wt0"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eo7-Q8-I5D">
-                    <rect key="frame" x="10" y="149" width="394" height="713"/>
+                    <rect key="frame" x="10" y="119" width="394" height="743"/>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="7x4-kt-lh9" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="25" id="1hG-rD-CeF"/>
+                <constraint firstItem="7x4-kt-lh9" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="5" id="1hG-rD-CeF"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Eo7-Q8-I5D" secondAttribute="bottom" id="X4h-8W-W1M"/>
                 <constraint firstItem="Eo7-Q8-I5D" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="YCT-kE-ubN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7x4-kt-lh9" secondAttribute="trailing" constant="10" id="cYM-FH-GxR"/>

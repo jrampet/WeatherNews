@@ -13,22 +13,26 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet var tempLabel: UILabel!
     @IBOutlet var hourLabel: UILabel!
     @IBOutlet var iconImage: UIImageView!
+    let imageLoader = ImageLoader()
     
-    static let identifier = "CollectionViewCell"
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         self.layer.cornerRadius = 10
-        card.backgroundColor = Colors.dirtyWhite
+        card.backgroundColor = UIColor.white
     }
     func configure(with hourData:Current){
-        self.iconImage.setImage(urlString: hourData.weather[0].icon)
-        self.hourLabel.text = getTimeForDate(hourData.dt,card)
+//        self.iconImage.setImage(urlString: hourData.weather[0].icon)
+        let urlImage = hourData.weather[0].icon.getUrlforWeatherIcon()
+            imageLoader.obtainImageWithPath(imagePath: urlImage) { (image) in
+                self.iconImage.image = image
+            }
+        self.hourLabel.text = hourData.dt.getTimeForDate(card)
         self.tempLabel.text = "\(Int(hourData.temp))\(current.temperature.unit())"
         
     }
     override func prepareForReuse() {
         super.prepareForReuse()
-        card.backgroundColor = Colors.dirtyWhite
+        card.backgroundColor = UIColor.white
     }
 }

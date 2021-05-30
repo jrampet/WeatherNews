@@ -8,84 +8,74 @@
 import Foundation
 
 import UIKit
-func generateURL(with lat:Double, and long: Double,for type:url)->String{
-//        lat=8.699525&lon=77.516735
-    switch(type){
-    case .cityAround :  return "https://api.openweathermap.org/data/2.5/find?lat=\(lat)&lon=\(long)&cnt=50&appid=3540e704b9a91cce081155a9f4acefc6"
-    case .singleCity :
-        return "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(long)&exclude=minutely&units=metric&appid=3540e704b9a91cce081155a9f4acefc6"
+import CoreLocation
+
+extension CLLocation{
+    func getUrl(for type:WeatherType)->String{
+        let latLong = "&lat=\(self.coordinate.latitude)&lon=\(self.coordinate.longitude)"
+        switch(type){
+        case .singleCity: return ApiUrl.Single + latLong
+        case .cityAround: return ApiUrl.cities + latLong
+        }
     }
 }
-func getDayForDate(_ inputDate: Int) -> String{
-    let date = Date(timeIntervalSince1970: Double(inputDate))
-    let formatter = DateFormatter()
-    formatter.dateFormat = "E"
-    let returnDate = formatter.string(from: date )
-    return returnDate
-}
-
-func getDateForDate(_ inputDate: Int) -> String{
-    let formatter = DateFormatter()
-    formatter.dateFormat = "E, MMM d"
-    let date = Date(timeIntervalSince1970: Double(inputDate))
-    
-    let returnDate = formatter.string(from: date )
-    
-    return returnDate
-}
-func getTimeForDate(_ inputDate: Int,_ cardView:CardView) -> String{
-    let formatter = DateFormatter()
-    formatter.dateFormat = "h:mm:a"
-    let currenDate = Date()
-    let currentHour = formatter.string(from: currenDate)
-    let date = Date(timeIntervalSince1970: Double(inputDate))
-    let returnDate = formatter.string(from: date )
-    let currentHourSplit = currentHour.components(separatedBy: ":")
-    let returnDateSplit = returnDate.components(separatedBy: ":")
-    if(currentHourSplit[0] == returnDateSplit[0] && (currentHourSplit[2] == returnDateSplit[2])){
-        cardView.backgroundColor = Colors.shrinePink
-        return "Now"
+extension Int{
+    func getDayForDate(dateFormat:String) -> String{
+        let date = Date(timeIntervalSince1970: Double(self))
+        let formatter = DateFormatter()
+        formatter.dateFormat = dateFormat
+        let returnDate = formatter.string(from: date )
+        return returnDate
     }
-    return returnDate
+    
+    func getTimeForDate(_ cardView:CardView) -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm:a"
+        let currenDate = Date()
+        let currentHour = formatter.string(from: currenDate)
+        let date = Date(timeIntervalSince1970: Double(self))
+        let returnDate = formatter.string(from: date )
+        let currentHourSplit = currentHour.components(separatedBy: ":")
+        let returnDateSplit = returnDate.components(separatedBy: ":")
+        if(currentHourSplit[0] == returnDateSplit[0] && (currentHourSplit[2] == returnDateSplit[2])){
+            cardView.backgroundColor = Colors.shrinePink
+            return "Now"
+        }
+        return returnDate
+    }
 }
 
+extension String{
+    func UTCToLocal() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" //Input Format
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+        let UTCDate = dateFormatter.date(from: formatDate(date:self))
+        dateFormatter.dateFormat = "yyyy-MMM-dd hh:mm:a"  //Output Format
+        dateFormatter.timeZone = TimeZone.current
+        let UTCToCurrentFormat = dateFormatter.string(from: UTCDate!)
+        return UTCToCurrentFormat
+    }
 
-func UTCToLocal(UTCDateString: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" //Input Format
-    dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-    let UTCDate = dateFormatter.date(from: formatDate(date:UTCDateString))
-    dateFormatter.dateFormat = "yyyy-MMM-dd hh:mm:a"  //Output Format
-    dateFormatter.timeZone = TimeZone.current
-    let UTCToCurrentFormat = dateFormatter.string(from: UTCDate!)
-    return UTCToCurrentFormat
-}
-
-func formatDate(date:String)->String{
-    var newDate = date.replacingOccurrences(of: "T", with: " ")
-    newDate = newDate.replacingOccurrences(of: "Z", with: "")
-    return newDate
-}
-
-extension StringProtocol {
-    var firstUppercased: String { prefix(1).uppercased() + dropFirst() }
-    var firstCapitalized: String { prefix(1).capitalized + dropFirst() }
+    func formatDate(date:String)->String{
+        var newDate = date.replacingOccurrences(of: "T", with: " ")
+        newDate = newDate.replacingOccurrences(of: "Z", with: "")
+        return newDate
+    }
+    func getUrlforWeatherIcon()->String{
+        return "http://openweathermap.org/img/wn/" + self + ".png"
+    }
 }
 
 extension UIImageView {
-    func setImage(urlString:String){
-        let iconurl = "http://openweathermap.org/img/w/" + urlString + ".png";
-        guard let iconurl = URL(string: iconurl) else {
-            return
+    func setImage(urlString:String="",url:String=""){
+        var urlLink = ""
+        if urlString != ""{
+            urlLink = "http://openweathermap.org/img/w/" + urlString + ".png";
         }
-        let data = try? Data(contentsOf: iconurl)
-
-        if let imageData = data {
-            let image = UIImage(data: imageData)
-           self.image = image
+        if url != ""{
+            urlLink = url
         }
-    }
-    func setImage(urlLink:String){
         guard let iconurl = URL(string: urlLink) else {
             return
         }
@@ -96,4 +86,24 @@ extension UIImageView {
            self.image = image
         }
     }
+}
+extension UIView{
+    func addInnerView(innerView:UIView){
+        self.addSubview(innerView)
+        
+        innerView.translatesAutoresizingMaskIntoConstraints = false
+        let horizontalConstraint = innerView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        let verticalConstraint = innerView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        
+        let widthConstraint = innerView.widthAnchor.constraint(equalTo:self.widthAnchor)
+        let heightConstraint = innerView.heightAnchor.constraint(equalTo:self.heightAnchor)
+        
+        let topConstraint = innerView.topAnchor.constraint(equalTo: self.topAnchor)
+        let bottomConstraint = innerView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        let leadingConstraint = innerView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        let trailingConstraint = innerView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        
+        self.addConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint,topConstraint,bottomConstraint,leadingConstraint,trailingConstraint])
+    }
+    
 }

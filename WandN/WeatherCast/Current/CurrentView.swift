@@ -25,7 +25,7 @@ class CurrentView: UIView {
     
     func setTopView(currentData:Current,location:CLLocation){
         imageIcon.setImage(urlString: currentData.weather[0].icon)
-        self.labelToday.text = getDateForDate(currentData.dt)
+        self.labelToday.text = currentData.dt.getDayForDate(dateFormat: "E, MMM d")
         self.TempLabel.text = "\(Int(currentData.temp))\(current.temperature.unit())"
         self.TempLabel.textColor = UIColor.systemPurple
         location.fetchCityAndCountry { [self] city, country, error in
@@ -33,8 +33,16 @@ class CurrentView: UIView {
             let selectedCity = "\(city), \(country)"
             self.locationLabel.text = selectedCity
         }
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        tapRecognizer.numberOfTapsRequired = 1
+        tapRecognizer.numberOfTouchesRequired = 1
+        locationLabel.addGestureRecognizer(tapRecognizer)
+        
     }
-    
+    @objc func handleTap(sender: UITapGestureRecognizer){
+        print("SDF")
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

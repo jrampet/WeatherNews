@@ -8,14 +8,14 @@
 import UIKit
 
 class TabCell: UICollectionViewCell {
-    static let identifier = "TabCell"
+    
     @IBOutlet var title: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     func configure(with title:String){
-        self.title.text = title.firstUppercased
+        self.title.text = title.capitalized
         self.backgroundColor = .clear
    
     }

@@ -14,21 +14,25 @@ class TableCell: UITableViewCell {
     @IBOutlet var Source: UILabel!
     @IBOutlet var time: UILabel!
     @IBOutlet var head: UILabel!
-    static let identifier = "TableCell"
+   var imageLoader = ImageLoader()
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-     
     }
     func configure(with data:Article){
+//        if let urlImage = data.urlToImage{
+//            newsImage.setImage(url: urlImage)
+//        }
         if let urlImage = data.urlToImage{
-            newsImage.setImage(urlLink: urlImage)
-            
+            imageLoader.obtainImageWithPath(imagePath: urlImage) { (image) in
+                self.newsImage.image = image
+            }
         }
+        
+        
         if let dataSource = data.source.name{
             Source.text = "By "+dataSource
         }
-        time.text = UTCToLocal(UTCDateString: data.publishedAt)
+        time.text = data.publishedAt.UTCToLocal()
         head.text = data.title
         newsImage.layer.cornerRadius = 10
         self.selectionStyle = .none
