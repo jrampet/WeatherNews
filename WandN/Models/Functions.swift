@@ -87,6 +87,13 @@ extension UIImageView {
         }
     }
 }
+extension UIViewController{
+    func pushController(_ controller: UIViewController,with title:String){
+        controller.title = title
+        guard let newController = self.navigationController else { return }
+        newController.pushViewController(controller, animated: true)
+    }
+}
 extension UIView{
     func addInnerView(innerView:UIView){
         self.addSubview(innerView)
@@ -104,6 +111,12 @@ extension UIView{
         let trailingConstraint = innerView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         
         self.addConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint,topConstraint,bottomConstraint,leadingConstraint,trailingConstraint])
+    }
+    
+    func register(with identifier:String){
+        let xibView = Bundle.main.loadNibNamed(identifier, owner: self)![0] as! UIView
+        self.addInnerView(innerView: xibView)
+        addSubview(xibView)
     }
     
 }

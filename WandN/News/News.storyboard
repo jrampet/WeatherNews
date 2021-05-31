@@ -11,7 +11,7 @@
         <!--News View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="NewsViewController" customModule="WandN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewsViewController" id="Y6W-OH-hqX" customClass="NewsViewController" customModule="WandN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -40,10 +40,41 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="R0o-TK-10R" secondAttribute="trailing" id="vMC-cR-gsa"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="newsView" destination="R0o-TK-10R" id="nd1-on-zHf"/>
+                        <outlet property="topView" destination="yTn-Yo-9bH" id="8Vw-I1-UJZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="139" y="64"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="Si0-Ya-u7Y">
+            <objects>
+                <viewController storyboardIdentifier="WebViewController" id="Pee-aH-pgu" customClass="WebViewController" customModule="WandN" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cBH-lh-u7W">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="zJP-3Q-kAo">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1wa-Qr-zaM"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zJP-3Q-kAo" firstAttribute="centerY" secondItem="cBH-lh-u7W" secondAttribute="centerY" id="Obd-Zq-VWa"/>
+                            <constraint firstItem="zJP-3Q-kAo" firstAttribute="centerX" secondItem="cBH-lh-u7W" secondAttribute="centerX" id="sJ3-gq-1nl"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="zJP-3Q-kAo" id="gWS-Qv-wAE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ttR-y9-0PK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1092" y="68"/>
         </scene>
     </scenes>
     <resources>

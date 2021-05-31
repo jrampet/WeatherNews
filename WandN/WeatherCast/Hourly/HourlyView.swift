@@ -9,29 +9,21 @@ import UIKit
 
 class HourlyView: UIView {
     let identifier = "CollectionViewCell"
-    var collection = UICollectionView(frame:.zero ,collectionViewLayout:UICollectionViewFlowLayout())
+    @IBOutlet var collection : UICollectionView!
+    
     var hourlyData = [Current]()
     
     override init(frame: CGRect){
         super.init(frame: frame)
-        
-    }
-    override func didMoveToSuperview() {
+        self.register(with: "HourlyView")
         setCollectionView()
     }
+   
     func setCollectionView(){
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        
-        let frameofCollection = CGRect(x: 0, y: 0, width: self.frame.width , height: self.frame.height)
-       collection = UICollectionView(frame: frameofCollection, collectionViewLayout: layout)
-        
         collection.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.identifier)
         collection.delegate = self
         collection.dataSource = self
         collection.backgroundColor = UIColor.clear
-        collection.showsHorizontalScrollIndicator = false
-        self.addSubview(collection)
     }
     
     required init?(coder: NSCoder) {
@@ -55,3 +47,34 @@ extension HourlyView:UICollectionViewDelegate,UICollectionViewDataSource,UIColle
     
     
 }
+/*
+ var collection = UICollectionView(frame:.zero ,collectionViewLayout:UICollectionViewFlowLayout())
+ var hourlyData = [Current]()
+ 
+ override init(frame: CGRect){
+     super.init(frame: frame)
+     
+ }
+ override func didMoveToSuperview() {
+     setCollectionView()
+ }
+ func setCollectionView(){
+     let layout = UICollectionViewFlowLayout()
+     layout.scrollDirection = .horizontal
+     
+     let frameofCollection = CGRect(x: 0, y: 0, width: self.frame.width , height: self.frame.height)
+    collection = UICollectionView(frame: frameofCollection, collectionViewLayout: layout)
+     
+     collection.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.identifier)
+     collection.delegate = self
+     collection.dataSource = self
+     collection.backgroundColor = UIColor.clear
+     collection.showsHorizontalScrollIndicator = false
+     self.addSubview(collection)
+ }
+ 
+ required init?(coder: NSCoder) {
+     super.init(coder: coder)
+ }
+
+ */

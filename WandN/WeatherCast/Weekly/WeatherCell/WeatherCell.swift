@@ -35,6 +35,7 @@ class WeatherCell: UITableViewCell {
         self.descriptLabel.contentMode = .scaleAspectFit
         self.selectionStyle = .none
         self.backgroundColor = UIColor.clear
+        self.contentView.backgroundColor = .clear
         
     }
     

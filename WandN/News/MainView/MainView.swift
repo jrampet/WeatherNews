@@ -6,17 +6,18 @@
 //
 
 import UIKit
-protocol MainViewDelegate{
+protocol MainViewDelegate: AnyObject{
     func openNews(with url:String)
 }
 
 class MainView: UIView {
     let identifier = "TableCell"
     @IBOutlet var table : UITableView!
-    var delegate: MainViewDelegate?
+    weak var delegate: MainViewDelegate?
     var NewsData = [Article](){
         didSet{
             DispatchQueue.main.async {
+                self.table.isHidden = false
                 self.table.reloadData()
             }
             
@@ -24,15 +25,14 @@ class MainView: UIView {
     }
     override init(frame: CGRect){
         super.init(frame: frame)
-        let xibView = Bundle.main.loadNibNamed("MainView", owner: self, options: nil)![0] as! UIView
-        self.addInnerView(innerView: xibView)
-        addSubview(xibView)
+        self.register(with: "MainView")
         createTable()
         self.backgroundColor = UIColor.clear
     }
 
     
     func createTable(){
+        self.table.isHidden = true
         table.register(UINib(nibName: self.identifier, bundle: nil), forCellReuseIdentifier: self.identifier)
         table.delegate = self
         table.dataSource = self

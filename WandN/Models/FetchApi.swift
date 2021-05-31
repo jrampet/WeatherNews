@@ -25,6 +25,11 @@ class FetchApi{
     
     
 }
+
+func getData(completion: @escaping (_ data: Int)->()){
+    
+}
+
 /*
  func request(url:String)->Data?{
      var returnData : Data?

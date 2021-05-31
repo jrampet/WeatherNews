@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WeatherCastViewController" customModule="WandN" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner">
             <connections>
                 <outlet property="currentViews" destination="nTK-Cv-IfL" id="wHG-wo-sMV"/>
                 <outlet property="hourView" destination="ulj-aB-Q9s" id="pLy-hU-2aS"/>
@@ -23,6 +23,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UQb-65-2KY" userLabel="BottomView">
                     <rect key="frame" x="20" y="642" width="374" height="200"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="200" id="bl4-5T-Mtk"/>
                     </constraints>

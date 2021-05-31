@@ -45,6 +45,14 @@
 		0631A0AD2663A73D002604B4 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0631A0AC2663A73D002604B4 /* MainView.xib */; };
 		0631A0AF2663AA47002604B4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0631A0AE2663AA47002604B4 /* ImageLoader.swift */; };
 		0631A0B12663C494002604B4 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0631A0B02663C494002604B4 /* News.storyboard */; };
+		0631A0B32664942D002604B4 /* HourlyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0631A0B22664942D002604B4 /* HourlyView.xib */; };
+		0631A0B526649CA3002604B4 /* Weekly.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0631A0B426649CA3002604B4 /* Weekly.xib */; };
+		0631A0B72664A9FE002604B4 /* Weather.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0631A0B62664A9FE002604B4 /* Weather.storyboard */; };
+		0631A0B92664F318002604B4 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0631A0B82664F318002604B4 /* LocationController.swift */; };
+		0631A0BB2664F59F002604B4 /* LocationTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0631A0BA2664F59F002604B4 /* LocationTable.swift */; };
+		0631A0BD26650057002604B4 /* LocationTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0631A0BC26650057002604B4 /* LocationTable.xib */; };
+		0631A0BF26650DF0002604B4 /* countriesCoordinates.json in Resources */ = {isa = PBXBuildFile; fileRef = 0631A0BE26650DF0002604B4 /* countriesCoordinates.json */; };
+		0631A0C126650E94002604B4 /* countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0631A0C026650E94002604B4 /* countries.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +96,14 @@
 		0631A0AC2663A73D002604B4 /* MainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
 		0631A0AE2663AA47002604B4 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		0631A0B02663C494002604B4 /* News.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
+		0631A0B22664942D002604B4 /* HourlyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourlyView.xib; sourceTree = "<group>"; };
+		0631A0B426649CA3002604B4 /* Weekly.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Weekly.xib; sourceTree = "<group>"; };
+		0631A0B62664A9FE002604B4 /* Weather.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Weather.storyboard; sourceTree = "<group>"; };
+		0631A0B82664F318002604B4 /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
+		0631A0BA2664F59F002604B4 /* LocationTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTable.swift; sourceTree = "<group>"; };
+		0631A0BC26650057002604B4 /* LocationTable.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationTable.xib; sourceTree = "<group>"; };
+		0631A0BE26650DF0002604B4 /* countriesCoordinates.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = countriesCoordinates.json; sourceTree = "<group>"; };
+		0631A0C026650E94002604B4 /* countries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countries.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +163,7 @@
 		0606CE88265D170000873A44 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0631A0BE26650DF0002604B4 /* countriesCoordinates.json */,
 				0606CE9F265D1E6600873A44 /* WeatherResponse.swift */,
 				0606CEA1265D1F6500873A44 /* Functions.swift */,
 				0606CEA3265D200D00873A44 /* Constants.swift */,
@@ -154,6 +171,7 @@
 				0606CEA7265D22CA00873A44 /* FetchApi.swift */,
 				0606CEB6265F5D4D00873A44 /* NewsResponse.swift */,
 				0631A0AE2663AA47002604B4 /* ImageLoader.swift */,
+				0631A0C026650E94002604B4 /* countries.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -166,6 +184,7 @@
 				0606CE97265D1C1C00873A44 /* Weekly */,
 				0606CE8D265D1B1500873A44 /* WeatherCastViewController.swift */,
 				0606CE8E265D1B1500873A44 /* WeatherCastViewController.xib */,
+				0631A0B62664A9FE002604B4 /* Weather.storyboard */,
 			);
 			path = WeatherCast;
 			sourceTree = "<group>";
@@ -188,6 +207,7 @@
 			children = (
 				0606CE9A265D1C7A00873A44 /* WeatherCell */,
 				0606CE98265D1C6F00873A44 /* Weekly.swift */,
+				0631A0B426649CA3002604B4 /* Weekly.xib */,
 			);
 			path = Weekly;
 			sourceTree = "<group>";
@@ -205,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				0606CEAA265E54C000873A44 /* HourlyView.swift */,
+				0631A0B22664942D002604B4 /* HourlyView.xib */,
 				0606CEB0265E569A00873A44 /* HourlyCell */,
 			);
 			path = Hourly;
@@ -224,6 +245,9 @@
 			children = (
 				0606CEB2265E72CE00873A44 /* CurrentView.swift */,
 				0606CEB4265E744000873A44 /* CurrentView.xib */,
+				0631A0B82664F318002604B4 /* LocationController.swift */,
+				0631A0BC26650057002604B4 /* LocationTable.xib */,
+				0631A0BA2664F59F002604B4 /* LocationTable.swift */,
 			);
 			path = Current;
 			sourceTree = "<group>";
@@ -333,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0606CE90265D1B1500873A44 /* WeatherCastViewController.xib in Resources */,
+				0631A0B72664A9FE002604B4 /* Weather.storyboard in Resources */,
 				0606CEAF265E54D000873A44 /* CollectionViewCell.xib in Resources */,
 				0606CE80265D167000873A44 /* LaunchScreen.storyboard in Resources */,
 				0631A0AB26639490002604B4 /* WebViewController.xib in Resources */,
@@ -342,10 +367,14 @@
 				0606CE7D265D167000873A44 /* Assets.xcassets in Resources */,
 				0606CEB5265E744000873A44 /* CurrentView.xib in Resources */,
 				0631A0AD2663A73D002604B4 /* MainView.xib in Resources */,
+				0631A0BF26650DF0002604B4 /* countriesCoordinates.json in Resources */,
 				0606CE7B265D166D00873A44 /* Main.storyboard in Resources */,
 				0606CEC3265F9A2800873A44 /* TabCell.xib in Resources */,
+				0631A0B526649CA3002604B4 /* Weekly.xib in Resources */,
 				0631A0A72663907A002604B4 /* Tabs.xib in Resources */,
 				0631A0B12663C494002604B4 /* News.storyboard in Resources */,
+				0631A0B32664942D002604B4 /* HourlyView.xib in Resources */,
+				0631A0BD26650057002604B4 /* LocationTable.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +390,7 @@
 				0606CEA0265D1E6600873A44 /* WeatherResponse.swift in Sources */,
 				0606CE96265D1B7200873A44 /* CardView.swift in Sources */,
 				0606CEA8265D22CA00873A44 /* FetchApi.swift in Sources */,
+				0631A0BB2664F59F002604B4 /* LocationTable.swift in Sources */,
 				0606CEBA265F8AB800873A44 /* Tabs.swift in Sources */,
 				0606CEB7265F5D4D00873A44 /* NewsResponse.swift in Sources */,
 				0606CECE265FC29100873A44 /* MainView.swift in Sources */,
@@ -372,11 +402,13 @@
 				0606CE74265D166D00873A44 /* AppDelegate.swift in Sources */,
 				0631A0AF2663AA47002604B4 /* ImageLoader.swift in Sources */,
 				0631A0AA26639490002604B4 /* WebViewController.swift in Sources */,
+				0631A0B92664F318002604B4 /* LocationController.swift in Sources */,
 				0606CEAE265E54D000873A44 /* CollectionViewCell.swift in Sources */,
 				0606CE76265D166D00873A44 /* SceneDelegate.swift in Sources */,
 				0606CE93265D1B3500873A44 /* NewsViewController.swift in Sources */,
 				0606CE8A265D172000873A44 /* ConstantViews.swift in Sources */,
 				0606CECB265FB23900873A44 /* TableCell.swift in Sources */,
+				0631A0C126650E94002604B4 /* countries.swift in Sources */,
 				0606CEB3265E72CE00873A44 /* CurrentView.swift in Sources */,
 				0606CE8F265D1B1500873A44 /* WeatherCastViewController.swift in Sources */,
 				0606CEA4265D200D00873A44 /* Constants.swift in Sources */,

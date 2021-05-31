@@ -14,9 +14,10 @@ class NewsViewController: UIViewController {
     
     let tabView = Tabs()
     let mainView = MainView()
-    
+    let newsStoryboard: UIStoryboard = UIStoryboard(name: "News", bundle: nil)
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Loaded")
         topView.addInnerView(innerView: tabView)
         newsView.addInnerView(innerView: mainView)
         mainView.delegate = self
@@ -69,7 +70,8 @@ extension NewsViewController:UISearchBarDelegate,MainViewDelegate,TabsDelegate{
     }
     
     func openNews(with url: String) {
-        let webVc = WebViewController(nibName: "WebViewController", bundle: nil)
+//        let webVc = WebViewController(nibName: "WebViewController", bundle: nil)
+        let webVc = newsStoryboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
         webVc.urlToLoad = url
         webVc.title = "News"
         guard let navigationVC = self.navigationController else {  return }

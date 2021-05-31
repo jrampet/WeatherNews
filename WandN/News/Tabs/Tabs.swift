@@ -6,19 +6,17 @@
 //
 
 import UIKit
-protocol TabsDelegate{
+protocol TabsDelegate:AnyObject{
     func reloadNews(with url:String)
 }
 class Tabs: UIView {
     let identifier = "TabCell"
-    var delegate :TabsDelegate?
+    weak var delegate :TabsDelegate?
     @IBOutlet var tabView : UICollectionView!
     
     override init(frame: CGRect){
         super.init(frame: frame)
-        let xibView = Bundle.main.loadNibNamed("Tabs", owner: self, options: nil)![0] as! UIView
-        self.addInnerView(innerView: xibView)
-        addSubview(xibView)
+        self.register(with: "Tabs")
         createCollectionView()
     }
     func createCollectionView(){

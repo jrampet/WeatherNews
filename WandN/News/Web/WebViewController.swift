@@ -15,6 +15,7 @@ class WebViewController: UIViewController {
     let webView = WKWebView()
     var urlToLoad : String = ""
     override func viewDidLoad() {
+        print("didLoad")
         activityIndicator.startAnimating()
         webView.navigationDelegate = self
         super.viewDidLoad()
@@ -25,7 +26,7 @@ class WebViewController: UIViewController {
 
     func createWebView(){
           webView.frame = view.frame
-          guard let url = URL(string:urlToLoad) else{return}
+        guard let url = URL(string:urlToLoad) else{ print("FD"); return}
           let request = URLRequest(url: url)
           webView.load(request)
       }
@@ -33,7 +34,7 @@ class WebViewController: UIViewController {
 }
 extension WebViewController: WKNavigationDelegate{
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        print("finished")
+       
         activityIndicator.stopAnimating()
         view = webView
     }

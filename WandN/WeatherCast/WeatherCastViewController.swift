@@ -21,16 +21,17 @@ class WeatherCastViewController: UIViewController,CLLocationManagerDelegate{
     @IBOutlet var weekView: UIView!
     @IBOutlet var hourView: UIView!
     @IBOutlet var currentViews: UIView!
-    
+    let weatherStoryboard: UIStoryboard = UIStoryboard(name: "Weather", bundle: nil)
     override func viewDidLoad() {
         super.viewDidLoad()
         location.delegate = self
+        current.delegate = self
         fetchLocation()
-        weeklyView.frame = weekView.bounds
+        weekView.addInnerView(innerView: weeklyView)
         weekView.addSubview(weeklyView)
-        hourlyView.frame = hourView.bounds
+        hourView.addInnerView(innerView: hourlyView)
         hourView.addSubview(hourlyView)
-        current.frame = CGRect(x: 10, y: 10, width: currentViews.frame.width-20, height: currentViews.frame.height-70)
+        current.frame = CGRect(x: 10, y: 10, width: currentViews.frame.width-20, height: currentViews.frame.height)
         currentViews.addSubview(current)
         view.backgroundColor = Colors.dirtyWhite
         // Do any additional setup after loading the view.
@@ -40,14 +41,14 @@ class WeatherCastViewController: UIViewController,CLLocationManagerDelegate{
             if let location = locations.first {
                 currentLocation = location
                 self.location.stopUpdatingLocation()
-                requestForWeather(at: location.coordinate.latitude,and: location.coordinate.longitude)
+                requestForWeather(at: location)
             }
         
         }
 
 
-    func requestForWeather(at lat:Double,and long:Double){
-        let url = CLLocation(latitude: lat, longitude: long).getUrl(for: .singleCity)
+    func requestForWeather(at location:CLLocation,selectedCountry:String=""){
+        let url = location.getUrl(for: .singleCity)
         
         var fetchedData : WeatherResponse?
         apiFetch.request(url: url, completion: {data in
@@ -64,7 +65,7 @@ class WeatherCastViewController: UIViewController,CLLocationManagerDelegate{
             print("LAAAT",fetchedData.lat)
            DispatchQueue.main.async {
                self.weeklyView.table.reloadData()
-               self.current.setTopView(currentData: fetchedData.current, location: CLLocation(latitude: fetchedData.lat, longitude: fetchedData.lon))
+               self.current.setTopView(currentData: fetchedData.current, location: CLLocation(latitude: fetchedData.lat, longitude: fetchedData.lon),country: selectedCountry)
                self.hourlyView.collection.reloadData()
            }
         })
@@ -124,3 +125,56 @@ class WeatherCastViewController: UIViewController,CLLocationManagerDelegate{
             print("Failed to find user's location: \(error.localizedDescription)")
     }
 }
+extension WeatherCastViewController : currentDelegate{
+    
+    func opentable(for location: CLLocation) {
+        let newController = weatherStoryboard.instantiateViewController(identifier: "LocationController") as LocationController
+        
+        guard let countryData = fetchAllCountries() else{return }
+        let cityNames = countryData.enumerated().map{"\($0.element.name),  \($0.element.country)"}
+       
+    let cityCoordinates = countryData.enumerated().map{CLLocation(latitude: $0.element.latitude,longitude: $0.element.longitude)}
+        newController.tableData=cityNames
+        newController.tableIndex = cityCoordinates
+        newController.table?.reloadData()
+        self.pushController(newController, with: "Select other location")
+        
+        
+        newController.pushLocation = {(location,country) in
+            
+            self.requestForWeather(at: location,selectedCountry: country)
+            print("Final",location)
+        }
+        
+    }
+    
+    func fetchAllCountries()->Countries?{
+        do {
+            if let bundlePath = Bundle.main.path(forResource: "countriesCoordinates",
+                                                 ofType: "json"),
+            let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
+                do{
+                    
+                      let countries = try JSONDecoder().decode(Countries.self,from:jsonData)
+                    print(countries.count)
+                    return countries
+                       
+                }catch{
+                    print("Error in countries")
+                }
+            }
+        }catch{
+            print("Error Happened")
+        }
+        return nil
+    }
+}
+/*
+    let cityNames = countries.enumerated().map{"\($0.element.name),  \($0.element.country)"}
+let cityCoordinates = countries.enumerated().map{CLLocation(latitude: $0.element.latitude,longitude: $0.element.longitude)}
+    DispatchQueue.main.async {
+       print(cityNames[0],cityNames[1])
+        print(cityCoordinates[0],cityCoordinates[1])
+    }
+
+*/

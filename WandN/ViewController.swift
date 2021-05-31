@@ -12,12 +12,13 @@ class ViewController: UIViewController {
     @IBOutlet var newsButton: UIButton!
     @IBOutlet var weatherButton: UIButton!
     let newsStoryboard: UIStoryboard = UIStoryboard(name: "News", bundle: nil)
+    let weatherStoryboard: UIStoryboard = UIStoryboard(name: "Weather", bundle: nil)
     @IBAction func onClick(_ sender: UIButton) {
         switch(sender.tag){
-        case 0: let controller = WeatherCastViewController(nibName: "WeatherCastViewController", bundle: nil)
-            pushViewController(controller, with: "Weather")
-        case 1: let controller = NewsViewController(nibName: "NewsViewController", bundle: nil)
-            pushViewController(controller, with: "News")
+        case 0: let controller = weatherStoryboard.instantiateViewController(identifier: "WeatherCastViewController")
+            pushController(controller, with: "Weather")
+        case 1: let controller = newsStoryboard.instantiateViewController(withIdentifier: "NewsViewController") as! NewsViewController
+            pushController(controller, with: "News")
         default: return
         }
     }
@@ -28,11 +29,7 @@ class ViewController: UIViewController {
         weatherButton.roundedCorner(color: Colors.brazilGreen)
         // Do any additional setup after loading the view.
     }
-    func pushViewController(_ controller: UIViewController,with title:String){
-        controller.title = title
-        guard let newController = self.navigationController else { return }
-        newController.pushViewController(controller, animated: true)
-    }
+  
     
 }
 
@@ -46,3 +43,9 @@ extension UIButton{
     }
 }
 
+/*
+ let controller = WeatherCastViewController(nibName: "WeatherCastViewController", bundle: nil)
+     pushViewController(controller, with: "Weather")
+ */
+
+//let controller = weatherStoryboard.instantiateViewController(identifier: "WeatherCastViewController")
