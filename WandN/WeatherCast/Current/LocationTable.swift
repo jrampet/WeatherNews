@@ -9,6 +9,7 @@ import UIKit
 import CoreLocation
 class LocationTable: UITableView {
     var dataArray = [String]()
+    var filteredArray = [String]()
     var indexArray = [CLLocation]()
     var currentLocation: CLLocation?
     let cellId = "Cell"

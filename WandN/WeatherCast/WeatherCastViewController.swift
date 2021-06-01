@@ -15,12 +15,12 @@ class WeatherCastViewController: UIViewController,CLLocationManagerDelegate{
     var hourlyView = HourlyView()
     
     var current = CurrentView()
-    
     let apiFetch = FetchApi()
-    
+
     @IBOutlet var weekView: UIView!
     @IBOutlet var hourView: UIView!
     @IBOutlet var currentViews: UIView!
+    
     let weatherStoryboard: UIStoryboard = UIStoryboard(name: "Weather", bundle: nil)
     override func viewDidLoad() {
         super.viewDidLoad()

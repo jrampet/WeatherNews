@@ -64,34 +64,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TTk-NL-NOc">
-                                <rect key="frame" x="10" y="54" width="394" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="nWL-fo-lQN"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Swr-6p-9hr">
-                                <rect key="frame" x="10" y="114" width="394" height="738"/>
+                                <rect key="frame" x="10" y="115" width="394" height="737"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ssb-2r-3mN">
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="737"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ssb-2r-3mN" secondAttribute="bottom" id="37w-wG-kBp"/>
+                                    <constraint firstItem="ssb-2r-3mN" firstAttribute="leading" secondItem="Swr-6p-9hr" secondAttribute="leading" id="5WP-c4-fEG"/>
+                                    <constraint firstItem="ssb-2r-3mN" firstAttribute="top" secondItem="Swr-6p-9hr" secondAttribute="top" id="8On-a2-Dc5"/>
+                                    <constraint firstAttribute="trailing" secondItem="ssb-2r-3mN" secondAttribute="trailing" id="Lh4-Am-YYV"/>
+                                </constraints>
                             </view>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ApJ-5c-yne">
+                                <rect key="frame" x="10" y="54" width="394" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="43T-69-vjY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Swr-6p-9hr" firstAttribute="top" secondItem="TTk-NL-NOc" secondAttribute="bottom" constant="10" id="2p5-o3-cmn"/>
+                            <constraint firstItem="Swr-6p-9hr" firstAttribute="top" secondItem="ApJ-5c-yne" secondAttribute="bottom" constant="10" id="562-of-TYp"/>
+                            <constraint firstItem="ApJ-5c-yne" firstAttribute="leading" secondItem="43T-69-vjY" secondAttribute="leading" constant="10" id="CkN-5a-riZ"/>
                             <constraint firstItem="43T-69-vjY" firstAttribute="trailing" secondItem="Swr-6p-9hr" secondAttribute="trailing" constant="10" id="MSa-A0-jQP"/>
-                            <constraint firstItem="TTk-NL-NOc" firstAttribute="top" secondItem="43T-69-vjY" secondAttribute="top" constant="10" id="U0K-cj-7YK"/>
-                            <constraint firstItem="43T-69-vjY" firstAttribute="trailing" secondItem="TTk-NL-NOc" secondAttribute="trailing" constant="10" id="VUi-7U-zh4"/>
-                            <constraint firstItem="TTk-NL-NOc" firstAttribute="leading" secondItem="43T-69-vjY" secondAttribute="leading" constant="10" id="Vvl-L6-dH3"/>
+                            <constraint firstItem="43T-69-vjY" firstAttribute="trailing" secondItem="ApJ-5c-yne" secondAttribute="trailing" constant="10" id="ULE-Vj-tBS"/>
                             <constraint firstItem="43T-69-vjY" firstAttribute="bottom" secondItem="Swr-6p-9hr" secondAttribute="bottom" constant="10" id="Yz8-kW-6t9"/>
                             <constraint firstItem="Swr-6p-9hr" firstAttribute="leading" secondItem="43T-69-vjY" secondAttribute="leading" constant="10" id="Zo9-2q-K2a"/>
+                            <constraint firstItem="ApJ-5c-yne" firstAttribute="top" secondItem="43T-69-vjY" secondAttribute="top" constant="10" id="ekR-bd-78b"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="dataView" destination="Swr-6p-9hr" id="YmL-1L-GD0"/>
-                        <outlet property="searchBar" destination="TTk-NL-NOc" id="FSk-rm-693"/>
+                        <outlet property="searchBar" destination="ApJ-5c-yne" id="y3k-HC-Vrd"/>
+                        <outlet property="table" destination="ssb-2r-3mN" id="mVh-Xh-aHv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P0B-29-1Bo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
